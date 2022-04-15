@@ -1,0 +1,55 @@
+    int m, n;
+    public void gameOfLife(int[][] board) {
+        if(board == null || board.length == 0) return;
+        m = board.length;
+        n = board[0].length;
+        
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                int count = getCount(board , i , j);
+                if(board[i][j] == 1){
+                    if(count > 3 || count < 2){
+                        board[i][j] = 2;
+                    }
+                }
+                else{
+                    if(count == 3){
+                        board[i][j] = 3;
+                    }
+                }
+            }
+        }
+        
+        for (int i = 0; i < board.length; i++){
+            for (int j = 0; j < board[0].length; j++){
+                if(board[i][j] == 2){
+                     board[i][j] = 0;
+                }
+                else if(board[i][j] == 3){
+                       board[i][j] = 1;
+                }
+            }
+        }
+    }
+    public int getCount(int[][] board, int row, int col) {
+         int diArr[][] = {{-1,-1},{-1,0},{-1,1},{0,1},{1,1},{1,0},{1,-1},{0,-1}};
+         int total = 0;
+         
+        for(int[] di : diArr){
+          int nrow = row + di[0];
+          int ncol = col + di[1];
+
+        if(nrow >= 0 && nrow < m && ncol >= 0 && ncol < n  && (board[nrow][ncol] == 1 || board[nrow][ncol] == 2)){
+            total++;
+        }
+    }
+    return total;
+    }
+}
+
+time: O(m*n)
+space: O(1)
+Leetcode: yes
+Difficulty: Looping
+
+
